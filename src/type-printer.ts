@@ -39,7 +39,7 @@ export function printTypes(jsonString: string) {
       }
       result += '}\n\n';
     }
-    return result;
+    return result.trim();
   }
 
   return printTypes();
