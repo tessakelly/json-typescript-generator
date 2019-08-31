@@ -1,3 +1,5 @@
+const pluralize = require('pluralize');
+
 export interface JsonType {
   boolean?: boolean;
   number?: boolean;
@@ -93,7 +95,7 @@ export function genTypes(input: string) {
     const childType = knownTypes[type.array];
 
     for (const child of arr) {
-      processNode(child, childType, name);
+      processNode(child, childType, pluralize.singular(name));
     }
   }
 
