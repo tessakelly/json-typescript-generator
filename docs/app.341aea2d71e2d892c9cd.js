@@ -9658,9 +9658,12 @@ function genTypes(input) {
     var usedTypeNames = {};
     function makeValidIdentifier(name) {
         var identifier = name.replace(/^[^A-za-z]+|\W+/gi, '');
-        return identifier.length ? identifier.charAt(0).toUpperCase() + identifier.slice(1) : 'Type';
+        return identifier.length ? identifier.charAt(0).toUpperCase() + identifier.slice(1) : 'DefaultType';
     }
     function generateNewTypeName(propertyName) {
+        if (propertyName === void 0) {
+            propertyName = 'DefaultType';
+        }
         var typeName = makeValidIdentifier(propertyName);
         if (knownObjectTypes[typeName]) {
             if (!usedTypeNames[typeName]) {
@@ -9704,7 +9707,7 @@ function genTypes(input) {
     }
     function processObject(obj, type, name) {
         if (!type.object) {
-            type.object = generateNewTypeName(name || 'Type');
+            type.object = generateNewTypeName(name);
             knownObjectTypes[type.object] = {};
         } else {
             checkForUndefinedTypes(obj, knownObjectTypes[type.object]);
@@ -9723,9 +9726,10 @@ function genTypes(input) {
             type.array = childTypeIndex;
         }
         var childType = knownTypes[type.array];
+        var childTypeName = pluralize.singular(generateNewTypeName(name));
         for (var _i = 0, arr_1 = arr; _i < arr_1.length; _i++) {
             var child = arr_1[_i];
-            processNode(child, childType, pluralize.singular(name));
+            processNode(child, childType, childTypeName);
         }
     }
     function processNode(node, type, name) {
@@ -9799,7 +9803,7 @@ function printTypes(jsonString) {
             }
             result += '}\n\n';
         }
-        return result;
+        return result.trim();
     }
     return printTypes();
 }
