@@ -27,10 +27,10 @@ export function genTypes(input: string) {
     const identifier = name.replace(/^[^A-za-z]+|\W+/gi, '');
     return identifier.length ?
       identifier.charAt(0).toUpperCase() + identifier.slice(1) :
-      'Type';
+      'DefaultType';
   }
 
-  function generateNewTypeName(propertyName: string) {
+  function generateNewTypeName(propertyName: string = 'DefaultType') {
     let typeName = makeValidIdentifier(propertyName);
     if (knownObjectTypes[typeName]) {
       if (!usedTypeNames[typeName]) {
@@ -74,7 +74,7 @@ export function genTypes(input: string) {
 
   function processObject(obj: any, type: JsonType, name?: string) {
     if (!type.object) {
-      type.object = generateNewTypeName(name || 'Type');
+      type.object = generateNewTypeName(name);
       knownObjectTypes[type.object] = {};
     } else {
       checkForUndefinedTypes(obj, knownObjectTypes[type.object]);
@@ -93,9 +93,10 @@ export function genTypes(input: string) {
       type.array = childTypeIndex;
     }
     const childType = knownTypes[type.array];
+    const childTypeName = pluralize.singular(generateNewTypeName(name));
 
     for (const child of arr) {
-      processNode(child, childType, pluralize.singular(name));
+      processNode(child, childType, childTypeName);
     }
   }
 
