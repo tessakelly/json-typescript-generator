@@ -2,11 +2,11 @@
 
 Try it here: [mchalk.github.io/json-typescript-guesser](https://mchalk.github.io/json-typescript-guesser)
 
-This project generates Typescript interfaces that describe whatever JSON you put in. For example,
+This project generates TypeScript interfaces that describe whatever JSON you put in. For example,
 
 ```json
 {
-  "document": [{
+  "documents": [{
     "title": "Document 1",
     "score": 0.98
   }, {
@@ -31,7 +31,7 @@ export interface Document {
 }
 ```
 
-Generating type interfaces like this can be a useful starting point when working with complex JSON objects in Typescript such as large API responses.
+Generating type interfaces like this can be a useful starting point when working with complex JSON objects in TypeScript such as large API responses.
 
 ---
 

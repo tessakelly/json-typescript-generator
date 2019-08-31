@@ -56,7 +56,7 @@ export default class Guesser extends React.Component<any, any> {
             </div>
           </form>
           <div className="column col-6 col-sm-12">
-            <p>This tool is intended to cut down the amount of time required to describe a complex data structure in Typescript. Paste some JSON (for example, the response body of a RESTful API you use) into the input and the tool will attempt to generate a set of Typescript interfaces that accurately describe your data.</p>
+            <p>This tool is intended to cut down the amount of time required to describe a complex data structure in TypeScript. Paste some JSON (for example, the response body of a RESTful API you use) into the input and the tool will attempt to generate a set of TypeScript interfaces that accurately describe your data.</p>
             <p>All processing is done client-side—the JSON you input does not leave your browser.</p>
           </div>
         </div>
