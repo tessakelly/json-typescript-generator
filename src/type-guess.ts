@@ -3,26 +3,30 @@ interface JsonType {
   number?: boolean;
   string?: boolean;
   null?: boolean;
-  object?: {
-    [key:string]: string; // JsonType key
-  }
-  array?: string; // JsonType key
+  object?: string; // key in knownObjectTypes
+  array?: number; // key in knownTypes
+}
+
+interface JsonObjectType {
+  [key:string]: number; // Property name: key of property type in knownTypes
 }
 
 export default function genTypes(input: string) {
-  let childNum = 0;
-  const knownTypes: { [key:string]: JsonType } = {};
+  const knownTypes: JsonType[] = [];
+  const knownObjectTypes: {
+    [key:string]: JsonObjectType;
+  } = {};
   const usedTypeNames: {
     [key:string]: number;
   } = {};
 
   function generateNewTypeName(propertyName: string) {
     let typeName = propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
-    if (knownTypes[typeName]) {
+    if (knownObjectTypes[typeName]) {
       if (!usedTypeNames[typeName]) {
         usedTypeNames[typeName] = 1;
       }
-      while (knownTypes[`${typeName}_${usedTypeNames[typeName]}`]) {
+      while (knownObjectTypes[`${typeName}_${usedTypeNames[typeName]}`]) {
         usedTypeNames[typeName] += 1;
       }
 
@@ -31,51 +35,51 @@ export default function genTypes(input: string) {
     return typeName;
   }
 
-  function processObject(obj: any, type: JsonType) {
+  function processObject(obj: any, type: JsonType, name?: string) {
     if (!type.object) {
-      type.object = {};
+      type.object = generateNewTypeName(name || 'Type');
+      knownObjectTypes[type.object] = {};
     }
     for (const key of Object.keys(obj)) {
-      if (!type.object[key]) {
-        const typeKey = generateNewTypeName(key);
-        type.object[key] = typeKey;
-        knownTypes[typeKey] = {};
+      const objectType = knownObjectTypes[type.object];
+      if (!objectType[key]) {
+        const childTypeIndex = knownTypes.length;
+        knownTypes.push({});
+        objectType[key] = childTypeIndex;
       }
-      processNode(obj[key], knownTypes[type.object[key]]);
+      processNode(obj[key], knownTypes[objectType[key]], key);
     }
   }
 
-  function processArray(arr: Array<any>, type: JsonType) {
+  function processArray(arr: Array<any>, type: JsonType, name?: string) {
     if (!type.array) {
-      const childTypeName = `ChildType${childNum}`;
-      knownTypes[childTypeName] = {};
-      childNum++;
-      type.array = childTypeName;
+      const childTypeIndex = knownTypes.length;
+      knownTypes.push({});
+      type.array = childTypeIndex;
     }
     const childType = knownTypes[type.array];
 
     for (const child of arr) {
-      processNode(child, childType);
+      processNode(child, childType, name);
     }
   }
 
-  function processNode(node, type: JsonType) {
+  function processNode(node, type: JsonType, name?: string) {
     const nodeType = typeof node;
     if (node === null) {
       type.null = true;
     } else if (nodeType === 'object') {
       if (Array.isArray(node)) {
-        processArray(node, type);
+        processArray(node, type, name);
       } else {
-        processObject(node, type);
+        processObject(node, type, name);
       }
     } else {
       type[nodeType] = true;
     }
   }
 
-  function printPropertyType(typeName: string) {
-    const type = knownTypes[typeName];
+  function printPropertyType(type: JsonType) {
     const types = [];
     if (type.boolean) {
       types.push('boolean');
@@ -87,10 +91,10 @@ export default function genTypes(input: string) {
       types.push('string');
     }
     if (type.object) {
-      types.push(typeName);
+      types.push(type.object);
     }
     if (type.array) {
-      types.push(`Array<${printPropertyType(type.array)}>`);
+      types.push(`Array<${printPropertyType(knownTypes[type.array])}>`);
     }
     if (type.null) {
       types.push('null');
@@ -103,21 +107,19 @@ export default function genTypes(input: string) {
 
   function printTypes() {
     let result = '';
-    for (const typeName of Object.keys(knownTypes)) {
-      const type = knownTypes[typeName];
-      if (type.object) {
-        result += `export interface ${typeName} {\n`;
-        for (const prop of Object.keys(type.object)) {
-          result += `  ${prop}: ${printPropertyType(type.object[prop])};\n`;
-        }
-        result += '}\n\n';
+    for (const typeName of Object.keys(knownObjectTypes)) {
+      const type = knownObjectTypes[typeName];
+      result += `export interface ${typeName} {\n`;
+      for (const prop of Object.keys(type)) {
+        result += `  ${prop}: ${printPropertyType(knownTypes[type[prop]])};\n`;
       }
+      result += '}\n\n';
     }
     return result;
   }
 
   const initType = {};
-  knownTypes['RootType'] = initType;
+  knownTypes.push(initType);
   processNode(JSON.parse(input), initType);
   return printTypes();
 }
