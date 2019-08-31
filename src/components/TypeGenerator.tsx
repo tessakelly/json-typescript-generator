@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { printTypes } from '../type-printer'
 
-export default class Guesser extends React.Component<any, any> {
+export default class TypeGenerator extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      input: '{"example": [{"text": "Hello"}, {"text": "world"}]}',
+      input: '{"examples": [{"text": "Hello"}, {"text": "world"}]}',
       result: '',
       valid: true
     };
@@ -30,7 +30,7 @@ export default class Guesser extends React.Component<any, any> {
 
   handleSubmit(event) {
     event.preventDefault();
-    const valid = Guesser.isValidJson(this.state.input);
+    const valid = TypeGenerator.isValidJson(this.state.input);
     this.setState({valid: valid});
     if (valid) {
       this.setState({result: printTypes(this.state.input)});

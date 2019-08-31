@@ -1,4 +1,4 @@
-import { genTypes, JsonType, JsonObjectType } from './type-guesser';
+import { genTypes, JsonType, JsonObjectType } from './type-generator';
 
 export function printTypes(jsonString: string) {
   const { knownTypes, knownObjectTypes } = genTypes(jsonString);

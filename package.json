@@ -1,5 +1,5 @@
 {
-  "name": "json-typescript-guesser",
+  "name": "json-typescript-generator",
   "version": "0.0.0",
   "description": "Utility which attempts to generate an appropriate set of typescript interfaces to describe a JSON input",
   "main": "index.js",

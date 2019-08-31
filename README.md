@@ -1,6 +1,6 @@
-# json-typescript-guesser
+# json-typescript-generator
 
-Try it here: [mchalk.github.io/json-typescript-guesser](https://mchalk.github.io/json-typescript-guesser)
+Try it here: [m-chael.github.io/json-typescript-generator](https://m-chael.github.io/json-typescript-generator)
 
 This project generates TypeScript interfaces that describe whatever JSON you put in. For example,
 
