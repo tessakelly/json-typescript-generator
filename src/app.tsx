@@ -8,7 +8,7 @@ ReactDOM.render(
     <h1>JSON Typescript Generator</h1>
     <TypeGenerator/>
     <div className="text-center">
-      <a href="https://github.com/m-chael/json-typescript-generator">
+      <a href="https://github.com/tessakelly/json-typescript-generator">
         <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/mark-github.svg" width="30" height="30" alt="GitHub repository"/>
       </a>
     </div>

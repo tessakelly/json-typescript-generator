@@ -1,6 +1,6 @@
 # json-typescript-generator
 
-Try it here: [m-chael.github.io/json-typescript-generator](https://m-chael.github.io/json-typescript-generator)
+Try it here: [tessakelly.github.io/json-typescript-generator](https://tessakelly.github.io/json-typescript-generator)
 
 This project generates TypeScript interfaces that describe whatever JSON you put in. For example,
 

@@ -9639,7 +9639,7 @@ var React = __webpack_require__(52);
 var ReactDOM = __webpack_require__(82);
 __webpack_require__(83);
 var TypeGenerator_1 = __webpack_require__(81);
-ReactDOM.render(React.createElement("div", null, React.createElement("h1", null, "JSON Typescript Generator"), React.createElement(TypeGenerator_1.default, null), React.createElement("div", { className: "text-center" }, React.createElement("a", { href: "https://github.com/m-chael/json-typescript-generator" }, React.createElement("img", { src: "https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/mark-github.svg", width: "30", height: "30", alt: "GitHub repository" })))), document.getElementById('root'));
+ReactDOM.render(React.createElement("div", null, React.createElement("h1", null, "JSON Typescript Generator"), React.createElement(TypeGenerator_1.default, null), React.createElement("div", { className: "text-center" }, React.createElement("a", { href: "https://github.com/tessakelly/json-typescript-generator" }, React.createElement("img", { src: "https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/mark-github.svg", width: "30", height: "30", alt: "GitHub repository" })))), document.getElementById('root'));
 
 /***/ }),
 /* 85 */
