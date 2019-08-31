@@ -1,11 +1,11 @@
 import * as React from 'react';
-import genTypes from '../type-guess'
+import { printTypes } from '../type-printer'
 
 export default class Guesser extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      input: '{"example": "Hello world"}',
+      input: '{"example": [{"text": "Hello"}, {"text": "world"}]}',
       result: '',
       valid: true
     };
@@ -33,7 +33,7 @@ export default class Guesser extends React.Component<any, any> {
     const valid = Guesser.isValidJson(this.state.input);
     this.setState({valid: valid});
     if (valid) {
-      this.setState({result: genTypes(this.state.input)});
+      this.setState({result: printTypes(this.state.input)});
     }
   }
 
@@ -56,8 +56,8 @@ export default class Guesser extends React.Component<any, any> {
             </div>
           </form>
           <div className="column col-6 col-sm-12">
-            <p>This tool is intended to cut down the amount of time to describe a complex data structure in Typescript. Paste some JSON (for example, the response body of a RESTful API you use) into the input and the tool will attempt to generate a set of Typescript interfaces that accurately describe your data.</p>
-            <p>All processing is done client-side, the JSON you input does not leave your browser.</p>
+            <p>This tool is intended to cut down the amount of time required to describe a complex data structure in Typescript. Paste some JSON (for example, the response body of a RESTful API you use) into the input and the tool will attempt to generate a set of Typescript interfaces that accurately describe your data.</p>
+            <p>All processing is done client-side—the JSON you input does not leave your browser.</p>
           </div>
         </div>
         <div>

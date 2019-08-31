@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server"
   },
   "author": "Tessa Kelly",
-  "license": "BSD-2-Clause",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^7.0.12",
     "@types/react": "^15.0.20",
