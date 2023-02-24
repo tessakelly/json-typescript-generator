@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { printTypes } from '../type-printer'
 
 export default class TypeGenerator extends React.Component<any, any> {

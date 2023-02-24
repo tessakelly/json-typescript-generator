@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "jsx": "react",
-    "types": ["node", "react", "react-dom"]
-  }
+    "target": "es6",
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*"]
 }
