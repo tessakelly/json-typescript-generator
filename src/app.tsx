@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import TypeGenerator from './components/TypeGenerator';
+import "./style.scss";
 
 ReactDOM.render(
   <div>

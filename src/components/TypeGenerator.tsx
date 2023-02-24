@@ -42,31 +42,33 @@ export default class TypeGenerator extends React.Component<any, any> {
   }
 
   render() {
-    return (
+    return (<>
+      <div>
+        <p>This tool is intended to cut down the amount of time required to describe a complex data structure in TypeScript. Paste some JSON (for example, the response body of a RESTful API you use) into the input and the tool will attempt to generate a set of TypeScript interfaces that accurately describe your data.</p>
+        <p>All processing is done client-side—the JSON you input does not leave your browser.</p>
+      </div>
       <div className="container">
-        <div className="columns">
-          <form onSubmit={this.handleSubmit} className={`column col-6 col-sm-12 ${this.state.valid ? '': 'has-danger'}`}>
+        <div className="column">
+          Input:
+          <form onSubmit={this.handleSubmit} className={`input-form ${this.state.valid ? '': 'has-danger'}`}>
             <div className="form-group">
-              <textarea value={this.state.input} onChange={this.handleInputChange} className="form-input"
-                rows={10}/>
+              <textarea value={this.state.input} onChange={this.handleInputChange}
+                rows={15}/>
             </div>
             <div className="form-group">
               {!this.state.valid && <p className="form-input-hint">Your input is not valid JSON.</p>}
               <button type="submit" className="btn btn-primary">Generate types</button>
             </div>
           </form>
-          <div className="column col-6 col-sm-12">
-            <p>This tool is intended to cut down the amount of time required to describe a complex data structure in TypeScript. Paste some JSON (for example, the response body of a RESTful API you use) into the input and the tool will attempt to generate a set of TypeScript interfaces that accurately describe your data.</p>
-            <p>All processing is done client-side—the JSON you input does not leave your browser.</p>
-          </div>
+          
         </div>
-        <div>
+        <div className="column">
           Output:
           <pre className="code">
-            <textarea value={this.state.result} onChange={this.handleResultChange} className="form-input" rows={15}/>
+            <textarea readOnly={true} value={this.state.result} onChange={this.handleResultChange} rows={15}/>
           </pre>
         </div>
       </div>
-    );
+    </>);
   }
 }

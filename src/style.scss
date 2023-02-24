@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0 3em;
+}
+
+p {
+  max-width: 35em;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+}
+
+.column {
+  flex-direction: row;
+  flex: 1 1 50%;
+  margin: 1em 0;
+
+  :first-child {
+    margin-right: 1em;
+  }
+}
+
+textarea, .code {
+  width: 100%;
+}
+
+textarea {
+  border-radius: 10px;
+  resize: none;
+}
+
+.input-form {
+  margin: 13px 0;
+}
+
+.btn {
+  padding: 1em;
+  margin-top: 1em;
+  background-color: #4452c0;
+  color: white;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+}
