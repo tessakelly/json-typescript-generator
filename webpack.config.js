@@ -1,26 +1,7 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
-const extractSass = new ExtractTextPlugin({
-  filename: "[name].[contenthash].css",
-  disable: process.env.NODE_ENV === "development"
-});
 
 const outputDir = 'docs';
-
-const babelOptions = {
-  presets: [
-    'react',
-    [
-      'es2015',
-      {
-        modules: false
-      }
-    ],
-    'es2016'
-  ]
-};
 
 module.exports = {
   entry: './src/app.tsx',
@@ -29,7 +10,7 @@ module.exports = {
     filename: 'app.[hash].js'
   },
   plugins: [
-    new CleanWebpackPlugin([outputDir]),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'index.template.html',
       inject: 'body'
@@ -44,8 +25,7 @@ module.exports = {
         test: /\.tsx?/,
         exclude: /node_modules/,
         use: [{
-          loader: 'babel-loader',
-          options: babelOptions
+          loader: 'babel-loader'
         }, {
           loader: 'ts-loader'
         }]
@@ -55,8 +35,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader',
-            options: babelOptions
+            loader: 'babel-loader'
           }
         ]
       },
@@ -66,11 +45,6 @@ module.exports = {
             loader: "style-loader"
         }, {
             loader: "css-loader"
-        }, {
-            loader: "sass-loader",
-            options: {
-              includePaths: ['node_modules']
-            }
         }]
       }
     ]
